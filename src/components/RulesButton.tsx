@@ -4,11 +4,21 @@ import styled from "styled-components";
 import Modal from "@/components/Modal";
 import RulesImage from "@/assets/image-rules.svg?react";
 
-const StyledButton = styled.button`
+const StyledWrapper = styled.div`
   position: absolute;
   right: 32px;
   bottom: 32px;
 
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 480px) {
+    position: unset;
+    margin: auto 0 50px 0;
+  }
+`;
+
+const StyledButton = styled.button`
   width: 128px;
   padding: 11px;
   padding-bottom: 10px;
@@ -29,13 +39,6 @@ const StyledButton = styled.button`
     color: hsl(228, 25%, 31%);
     background: linear-gradient(0deg, #f3f3f3 0%, #fff 100%);
   }
-
-  @media (max-width: 480px) {
-    left: 0;
-    right: 0;
-    bottom: 56px;
-    margin: 0 auto;
-  }
 `;
 
 const StyledRulesImage = styled(RulesImage)`
@@ -52,7 +55,7 @@ function RulesButton() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <>
+    <StyledWrapper>
       <StyledButton onClick={() => setIsOpen(!isOpen)}>RULES</StyledButton>
       <Modal
         isOpen={isOpen}
@@ -60,7 +63,7 @@ function RulesButton() {
         title="RULES"
         content={<StyledRulesImage />}
       />
-    </>
+    </StyledWrapper>
   );
 }
 
