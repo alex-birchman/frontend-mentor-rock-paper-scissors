@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import { useGame } from "@/hooks/useGame";
 import { GAME_STATUS } from "@/const/game";
@@ -48,7 +49,13 @@ function GameResult() {
   }
 
   return (
-    <StyledWrapper>
+    <StyledWrapper
+      layout
+      as={motion.div}
+      transition={SPRING}
+      initial={{ scale: 0.5 }}
+      animate={{ scale: 1 }}
+    >
       {status === GAME_STATUS.PLAYER_WON && <StyledTitle>YOU WIN</StyledTitle>}
       {status === GAME_STATUS.COMPUTER_WON && (
         <StyledTitle>YOU LOSE</StyledTitle>
@@ -60,3 +67,9 @@ function GameResult() {
 }
 
 export default GameResult;
+
+const SPRING = {
+  type: "spring",
+  stiffness: 400,
+  damping: 40,
+};

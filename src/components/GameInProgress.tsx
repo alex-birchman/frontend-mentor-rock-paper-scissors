@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Shape from "@/components/Shape";
 import GameResult from "@/components/GameResult";
 import { useGame } from "@/hooks/useGame";
+import { GAME_STATUS } from "@/const/game";
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -62,14 +63,20 @@ const StyledGameResultWrapper = styled.div`
 `;
 
 function GameInProgress() {
-  const { playerShape, computerShape } = useGame();
+  const { status, playerShape, computerShape } = useGame();
 
   return (
     <StyledWrapper>
       <StyledSide $side="player">
         <StyledSideTitle>YOU PICKED</StyledSideTitle>
         <StyledSideShape>
-          <Shape type={playerShape} size="large" />
+          <Shape
+            isNotInteracive
+            type={playerShape}
+            size="large"
+            showBacklightWave={status === GAME_STATUS.PLAYER_WON}
+            layoutId={playerShape}
+          />
         </StyledSideShape>
       </StyledSide>
       <StyledGameResultWrapper>
@@ -78,7 +85,13 @@ function GameInProgress() {
       <StyledSide $side="computer">
         <StyledSideTitle>THE HOUSE PICKED</StyledSideTitle>
         <StyledSideShape>
-          <Shape type={computerShape} size="large" />
+          <Shape
+            isNotInteracive
+            type={computerShape}
+            size="large"
+            showBacklightWave={status === GAME_STATUS.COMPUTER_WON}
+            layoutId={`cpu_${computerShape}`}
+          />
         </StyledSideShape>
       </StyledSide>
     </StyledWrapper>

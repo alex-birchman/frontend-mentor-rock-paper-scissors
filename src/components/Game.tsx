@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { LayoutGroup } from "framer-motion";
 
 import Shape from "@/components/Shape";
 import GameInProgress from "@/components/GameInProgress";
@@ -78,20 +79,22 @@ function Game() {
   }
 
   return (
-    <StyledWrapper>
-      <StyledShapeWrapper>
-        <StyledTriangleIcon />
-        <StyledShapePaper onClick={() => handleClickShape(SHAPE_PAPER)}>
-          <Shape type={SHAPE_PAPER} />
-        </StyledShapePaper>
-        <StyledShapeScissors onClick={() => handleClickShape(SHAPE_SCISSORS)}>
-          <Shape type={SHAPE_SCISSORS} />
-        </StyledShapeScissors>
-        <StyledShapeRock onClick={() => handleClickShape(SHAPE_ROCK)}>
-          <Shape type={SHAPE_ROCK} />
-        </StyledShapeRock>
-      </StyledShapeWrapper>
-    </StyledWrapper>
+    <LayoutGroup>
+      <StyledWrapper>
+        <StyledShapeWrapper>
+          <StyledTriangleIcon />
+          <StyledShapePaper onClick={() => handleClickShape(SHAPE_PAPER)}>
+            <Shape layoutId={SHAPE_PAPER} type={SHAPE_PAPER} />
+          </StyledShapePaper>
+          <StyledShapeScissors onClick={() => handleClickShape(SHAPE_SCISSORS)}>
+            <Shape layoutId={SHAPE_SCISSORS} type={SHAPE_SCISSORS} />
+          </StyledShapeScissors>
+          <StyledShapeRock onClick={() => handleClickShape(SHAPE_ROCK)}>
+            <Shape layoutId={SHAPE_ROCK} type={SHAPE_ROCK} />
+          </StyledShapeRock>
+        </StyledShapeWrapper>
+      </StyledWrapper>
+    </LayoutGroup>
   );
 }
 
