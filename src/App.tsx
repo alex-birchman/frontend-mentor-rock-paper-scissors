@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-import GameProvider from "./components/GameProvider";
-import Header from "./components/Header";
-import Game from "./components/Game";
+import GameProvider from "@/components/GameProvider";
+import Header from "@/components/Header";
+import Game from "@/components/Game";
+import RulesButton from "@/components/RulesButton";
 
 const StyledMain = styled.main`
   width: 100%;
@@ -22,6 +23,7 @@ function App() {
         <Header />
         <Game />
       </StyledMain>
+      <RulesButton />
     </GameProvider>
   );
 }

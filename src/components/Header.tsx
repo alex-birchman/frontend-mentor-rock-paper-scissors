@@ -14,6 +14,10 @@ const Wrapper = styled.div`
   padding: 18px 24px;
   border-radius: 0.9375rem;
   border: 3px solid hsla(0deg, 0%, 100%, 0.2);
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 `;
 
 function Header() {

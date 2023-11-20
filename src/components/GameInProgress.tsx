@@ -53,6 +53,7 @@ const StyledSideShape = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto 0;
 `;
 
 const StyledGameResultWrapper = styled.div`
