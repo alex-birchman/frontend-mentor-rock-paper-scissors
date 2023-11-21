@@ -23,7 +23,7 @@ export function getGameResult(
   if (
     (playerShape === SHAPE_ROCK && computerShape === SHAPE_SCISSORS) ||
     (playerShape === SHAPE_PAPER && computerShape === SHAPE_ROCK) ||
-    (playerShape === SHAPE_SCISSORS && computerShape === SHAPE_ROCK)
+    (playerShape === SHAPE_SCISSORS && computerShape === SHAPE_PAPER)
   ) {
     return GAME_STATUS.PLAYER_WON;
   }
