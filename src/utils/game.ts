@@ -1,5 +1,6 @@
 import { ShapeType } from "@/types/shape";
 import {
+  BASIC_SHAPES,
   EXTENDED_SHAPES,
   SHAPE_ROCK,
   SHAPE_PAPER,
@@ -9,9 +10,10 @@ import {
 } from "@/const/shape";
 import { GAME_STATUS } from "@/const/game";
 
-export function getRandomComputerShape(): ShapeType {
-  const randomIndex = Math.floor(Math.random() * EXTENDED_SHAPES.length);
-  return EXTENDED_SHAPES[randomIndex];
+export function getRandomComputerShape(isExtended: boolean = false): ShapeType {
+  const selectedShapes = isExtended ? EXTENDED_SHAPES : BASIC_SHAPES;
+  const randomIndex = Math.floor(Math.random() * selectedShapes.length);
+  return selectedShapes[randomIndex];
 }
 
 export function getGameResult(

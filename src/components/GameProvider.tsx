@@ -162,7 +162,9 @@ function GameProvider({ children }: GameProviderProps) {
     dispatch({ type: "SET_PLAYER_SHAPE", payload: shape });
 
     setTimeout(() => {
-      const computerShape = getRandomComputerShape();
+      const computerShape = getRandomComputerShape(
+        state.gameType === GAME_TYPE.EXTENDED
+      );
       handleSelectComputerShape(shape, computerShape);
     }, 1500);
   }
