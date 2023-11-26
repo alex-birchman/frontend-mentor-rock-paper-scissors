@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 import LogoIcon from "@/assets/logo.svg?react";
 import ExtendedLogoIcon from "@/assets/logo-extended.svg?react";
-import { GAME_TYPE } from "@/const/game";
+import { GAME_TYPE, GAME_STATUS } from "@/const/game";
 import { useGame } from "@/hooks/useGame";
+import { GameType } from "@/types/game";
 
 const StyledBasicGameLogo = styled(LogoIcon)`
   width: 159px;
@@ -32,18 +33,21 @@ const StyledExtendedGameLogo = styled(ExtendedLogoIcon)`
 `;
 
 function Logo() {
-  const { gameType, handleChangeGameType } = useGame();
+  const { status, gameType, handleChangeGameType } = useGame();
+
+  function handleClick(gameType: GameType) {
+    if (status !== GAME_STATUS.NOT_STARTED) {
+      return;
+    }
+    handleChangeGameType(gameType);
+  }
 
   return (
     <>
       {gameType === GAME_TYPE.BASIC ? (
-        <StyledBasicGameLogo
-          onClick={() => handleChangeGameType(GAME_TYPE.EXTENDED)}
-        />
+        <StyledBasicGameLogo onClick={() => handleClick(GAME_TYPE.EXTENDED)} />
       ) : (
-        <StyledExtendedGameLogo
-          onClick={() => handleChangeGameType(GAME_TYPE.BASIC)}
-        />
+        <StyledExtendedGameLogo onClick={() => handleClick(GAME_TYPE.BASIC)} />
       )}
     </>
   );

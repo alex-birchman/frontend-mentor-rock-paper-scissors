@@ -98,6 +98,7 @@ function reducer(state: GameStateType, action: GameReducerActionType) {
     case "SET_GAME_TYPE": {
       return {
         ...state,
+        score: initialState.score,
         gameType: action.payload,
       };
     }
