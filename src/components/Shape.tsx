@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 import ShapeIcon from "@/components/ShapeIcon";
-import { ShapeType, ShapeSize } from "@/types/shape";
+import { ShapeType, ShapeSize, ExtendedShapeType } from "@/types/shape";
 
 const StyledUnspecifiedShape = styled.div`
   width: 225px;
@@ -69,16 +69,25 @@ const StyledBacklightWave = styled.div<{
 `;
 
 type ShapeProps = {
-  type?: ShapeType;
+  type?: ShapeType | ExtendedShapeType;
   size?: ShapeSize;
   layoutId?: string;
   isNotInteracive?: boolean;
   showBacklightWave?: boolean;
+  isExtendedGame?: boolean;
 };
 
 function Shape(
-  { type, size, layoutId, isNotInteracive, showBacklightWave }: ShapeProps = {
+  {
+    type,
+    size,
+    layoutId,
+    isNotInteracive,
+    showBacklightWave,
+    isExtendedGame,
+  }: ShapeProps = {
     showBacklightWave: false,
+    isExtendedGame: false,
   }
 ) {
   const selectedSize = size || "medium";
@@ -111,7 +120,7 @@ function Shape(
       layoutId={layoutId}
       $isNotInteractive={isNotInteracive}
     >
-      <ShapeIcon type={type} size={selectedSize} />
+      <ShapeIcon type={type} size={selectedSize} isExtended={isExtendedGame} />
       {!isNotInteracive && <StyledWrapperHover />}
       {showBacklightWave && (
         <>

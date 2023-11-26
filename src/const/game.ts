@@ -4,4 +4,9 @@ export const GAME_STATUS = {
   PLAYER_WON: "PLAYER_WON",
   COMPUTER_WON: "COMPUTER_WON",
   DRAW: "DRAW",
-};
+} as const;
+
+export const GAME_TYPE = {
+  BASIC: "BASIC",
+  EXTENDED: "EXTENDED",
+} as const;

@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import Modal from "@/components/Modal";
+import { useGame } from "@/hooks/useGame";
+import { GAME_TYPE } from "@/const/game";
 import RulesImage from "@/assets/image-rules.svg?react";
+import RulesExtendedImage from "@/assets/image-rules-bonus.svg?react";
 
 const StyledWrapper = styled.div`
   position: absolute;
@@ -51,8 +54,20 @@ const StyledRulesImage = styled(RulesImage)`
   }
 `;
 
+const StyledRulesExtendedImage = styled(RulesExtendedImage)`
+  margin-top: 20px;
+
+  @media (max-width: 480px) {
+    margin: auto;
+    margin-top: 96px;
+  }
+`;
+
 function RulesButton() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { gameType } = useGame();
+
+  const isExtendedGame = gameType === GAME_TYPE.EXTENDED;
 
   return (
     <StyledWrapper>
@@ -61,7 +76,9 @@ function RulesButton() {
         isOpen={isOpen}
         onDismiss={() => setIsOpen(!isOpen)}
         title="RULES"
-        content={<StyledRulesImage />}
+        content={
+          isExtendedGame ? <StyledRulesExtendedImage /> : <StyledRulesImage />
+        }
       />
     </StyledWrapper>
   );

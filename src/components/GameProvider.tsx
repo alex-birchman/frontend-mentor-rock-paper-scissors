@@ -1,11 +1,12 @@
 import React from "react";
 
-import { GAME_STATUS } from "@/const/game";
+import { GAME_STATUS, GAME_TYPE } from "@/const/game";
 import { ShapeType } from "@/types/shape";
-import { GameStatusType } from "@/types/game";
+import { GameStatusType, GameType } from "@/types/game";
 import { getGameResult, getRandomComputerShape } from "@/utils/game";
 
 type GameContextType = {
+  gameType: GameType;
   status: GameStatusType;
   score: number;
   playerShape?: ShapeType;
@@ -15,10 +16,12 @@ type GameContextType = {
     playerShape: ShapeType,
     computerShape: ShapeType
   ) => void;
+  handleChangeGameType: (gameType: GameType) => void;
   handleResetGame: () => void;
 };
 
 type GameStateType = {
+  gameType: GameType;
   status: GameStatusType;
   score: number;
   playerShape?: ShapeType;
@@ -54,7 +57,13 @@ type GameResetActionType = {
   type: "RESET_GAME";
 };
 
+type GameSetGameTypeActionType = {
+  type: "SET_GAME_TYPE";
+  payload: GameType;
+};
+
 type GameReducerActionType =
+  | GameSetGameTypeActionType
   | GameSetStatusActionType
   | GameIncrementScoreActionType
   | GameDecrementScoreActionType
@@ -63,6 +72,7 @@ type GameReducerActionType =
   | GameResetActionType;
 
 const initialState = {
+  gameType: GAME_TYPE.BASIC,
   status: GAME_STATUS.NOT_STARTED,
   score: 0,
   playerShape: undefined,
@@ -70,12 +80,14 @@ const initialState = {
 };
 
 const initialContext = {
+  gameType: GAME_TYPE.BASIC,
   status: GAME_STATUS.NOT_STARTED,
   score: 0,
   playerShape: undefined,
   computerShape: undefined,
   hadleSelectPlayerShape: () => {},
   handleSelectComputerShape: () => {},
+  handleChangeGameType: () => {},
   handleResetGame: () => {},
 };
 
@@ -83,6 +95,12 @@ export const GameContext = React.createContext<GameContextType>(initialContext);
 
 function reducer(state: GameStateType, action: GameReducerActionType) {
   switch (action.type) {
+    case "SET_GAME_TYPE": {
+      return {
+        ...state,
+        gameType: action.payload,
+      };
+    }
     case "SET_STATUS": {
       return {
         ...state,
@@ -114,10 +132,16 @@ function reducer(state: GameStateType, action: GameReducerActionType) {
       };
     }
     case "RESET_GAME": {
-      return {
-        ...initialState,
-        score: state.score,
-      };
+      return state.gameType === GAME_TYPE.BASIC
+        ? {
+            ...initialState,
+            score: state.score,
+          }
+        : {
+            ...initialState,
+            score: state.score,
+            gameType: GAME_TYPE.EXTENDED,
+          };
     }
     default: {
       return state;
@@ -162,6 +186,10 @@ function GameProvider({ children }: GameProviderProps) {
     }
   }
 
+  const handleChangeGameType = (gameType: GameType) => {
+    dispatch({ type: "SET_GAME_TYPE", payload: gameType });
+  };
+
   const handleResetGame = () => {
     dispatch({ type: "RESET_GAME" });
   };
@@ -169,12 +197,14 @@ function GameProvider({ children }: GameProviderProps) {
   return (
     <GameContext.Provider
       value={{
+        gameType: state.gameType,
         status: state.status,
         score: state.score,
         playerShape: state.playerShape,
         computerShape: state.computerShape,
         hadleSelectPlayerShape,
         handleSelectComputerShape,
+        handleChangeGameType,
         handleResetGame,
       }}
     >
