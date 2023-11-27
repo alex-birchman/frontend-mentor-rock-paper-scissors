@@ -1,4 +1,6 @@
+import React from "react";
 import styled from "styled-components";
+import { motion, useAnimationControls } from "framer-motion";
 
 import LogoIcon from "@/assets/logo.svg?react";
 import ExtendedLogoIcon from "@/assets/logo-extended.svg?react";
@@ -34,22 +36,38 @@ const StyledExtendedGameLogo = styled(ExtendedLogoIcon)`
 
 function Logo() {
   const { status, gameType, handleChangeGameType } = useGame();
+  const controls = useAnimationControls();
 
   function handleClick(gameType: GameType) {
     if (status !== GAME_STATUS.NOT_STARTED) {
       return;
     }
     handleChangeGameType(gameType);
+    controls.stop();
   }
 
+  React.useEffect(() => {
+    controls.start({
+      rotateZ: [0, 6, 0, -6, 0, 6, 0, -6, 0, 6, 0, -6, 0],
+    });
+  }, [controls]);
+
   return (
-    <>
+    <motion.div
+      transition={{
+        repeat: 2,
+        repeatDelay: 4,
+        ease: "easeOut",
+        duration: 0.6,
+      }}
+      animate={controls}
+    >
       {gameType === GAME_TYPE.BASIC ? (
         <StyledBasicGameLogo onClick={() => handleClick(GAME_TYPE.EXTENDED)} />
       ) : (
         <StyledExtendedGameLogo onClick={() => handleClick(GAME_TYPE.BASIC)} />
       )}
-    </>
+    </motion.div>
   );
 }
 
