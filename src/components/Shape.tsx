@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 import ShapeIcon from "@/components/ShapeIcon";
 import { ShapeType, ShapeSize, ExtendedShapeType } from "@/types/shape";
+import { SPRING_ANIMATION } from "@/const/animation";
 
 const StyledUnspecifiedShape = styled.div`
   width: 225px;
@@ -116,7 +117,7 @@ function Shape(
       initial={{ scale: 0.5 }}
       animate={{ scale: 1 }}
       exit={{ scale: 1.5 }}
-      transition={SPRING}
+      transition={SPRING_ANIMATION}
       layoutId={layoutId}
       $isNotInteractive={isNotInteracive}
     >
@@ -164,9 +165,3 @@ function Shape(
 }
 
 export default Shape;
-
-const SPRING = {
-  type: "spring",
-  stiffness: 400,
-  damping: 40,
-};

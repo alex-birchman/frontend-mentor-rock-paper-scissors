@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 import { useGame } from "@/hooks/useGame";
 import { GAME_STATUS } from "@/const/game";
+import { SPRING_ANIMATION } from "@/const/animation";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ function GameResult() {
     <StyledWrapper
       layout
       as={motion.div}
-      transition={SPRING}
+      transition={SPRING_ANIMATION}
       initial={{ scale: 0.5 }}
       animate={{ scale: 1 }}
     >
@@ -67,9 +68,3 @@ function GameResult() {
 }
 
 export default GameResult;
-
-const SPRING = {
-  type: "spring",
-  stiffness: 400,
-  damping: 40,
-};
