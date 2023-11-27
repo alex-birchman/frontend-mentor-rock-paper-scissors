@@ -59,6 +59,7 @@ function Logo() {
         repeatDelay: 4,
         ease: "easeOut",
         duration: 0.6,
+        delay: 1.5,
       }}
       animate={controls}
     >
